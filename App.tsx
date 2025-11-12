@@ -56,23 +56,6 @@ const servicesData: Service[] = [
   },
 ];
 
-const blogData: BlogPost[] = [
-  {
-    id: 1,
-    title: "El punto y coma: ese gran desconocido",
-    excerpt: "El punto y coma es uno de los signos de puntuación que más dudas genera. ¿Cuándo se usa? ¿Puedo sustituirlo por un punto o una coma? En esta entrada desvelamos todos sus secretos...",
-    date: "15 de julio de 2024",
-    fullContent: "Contenido completo del artículo sobre el punto y coma...",
-  },
-  {
-    id: 2,
-    title: "5 errores comunes que debes evitar en tus textos",
-    excerpt: "Desde la concordancia verbal hasta el abuso de gerundios, todos cometemos pequeños deslices al escribir. Identificar y corregir estos errores comunes es el primer paso para...",
-    date: "1 de julio de 2024",
-    fullContent: "Contenido completo del artículo sobre los 5 errores comunes...",
-  }
-];
-
 // --- SUB-COMPONENTS ---
 
 interface HeaderProps {
@@ -96,7 +79,10 @@ const Header: React.FC<HeaderProps> = ({ onOpenBlog }) => {
         setIsOpen(false);
 
         if (href === '#blog') {
-            onOpenBlog();
+             const targetElement = document.getElementById('blog');
+             if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
             return;
         }
 
@@ -302,6 +288,55 @@ const NewsSection: React.FC = () => {
 }
 
 const ContactForm: React.FC = () => {
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [responseMessage, setResponseMessage] = useState('');
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setStatus('sending');
+    setResponseMessage('');
+
+    try {
+      // This URL should point to your Laravel backend endpoint.
+      // For local development, it will be something like 'http://127.0.0.1:8000/api/contact'.
+      const response = await fetch('http://127.0.0.1:8000/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        // Handle validation errors or other server errors
+        throw new Error(result.message || 'Ocurrió un error en el servidor.');
+      }
+
+      setStatus('success');
+      setResponseMessage(result.message || '¡Mensaje enviado con éxito! Te responderé pronto.');
+      setFormData({ name: '', email: '', message: '' }); // Clear form
+
+    } catch (error) {
+      setStatus('error');
+      if (error instanceof Error) {
+        // Network errors or other issues with fetch will be caught here.
+        setResponseMessage(error.message || 'No se pudo enviar el mensaje. Por favor, inténtalo más tarde.');
+      } else {
+        setResponseMessage('Ocurrió un error inesperado.');
+      }
+    }
+  };
+
+
   return (
     <section id="contacto" className="py-20 scroll-mt-20">
       <div className="container mx-auto px-6 max-w-3xl">
@@ -312,25 +347,39 @@ const ContactForm: React.FC = () => {
           </p>
         </div>
         <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 max-w-xl mx-auto">
-          <form onSubmit={(e) => { e.preventDefault(); alert('Formulario enviado (simulación)'); }}>
-            <div className="mb-4">
-              <label htmlFor="name" className="block text-gray-700 font-medium mb-2">Nombre</label>
-              <input type="text" id="name" name="name" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition" required />
-            </div>
-            <div className="mb-4">
-              <label htmlFor="email" className="block text-gray-700 font-medium mb-2">Email</label>
-              <input type="email" id="email" name="email" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition" required />
-            </div>
-            <div className="mb-6">
-              <label htmlFor="message" className="block text-gray-700 font-medium mb-2">Mensaje</label>
-              <textarea id="message" name="message" rows={5} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition" required></textarea>
-            </div>
-            <div className="text-center">
-              <button type="submit" className="bg-orange-500 text-white font-bold py-3 px-10 rounded-full hover:bg-orange-600 transition-transform duration-300 transform hover:scale-105 text-lg">
-                Enviar Mensaje
-              </button>
-            </div>
-          </form>
+          {status === 'success' ? (
+             <div className="text-center p-4 bg-green-100 text-green-800 rounded-lg">
+                <p className="font-bold">¡Gracias!</p>
+                <p>{responseMessage}</p>
+             </div>
+          ) : (
+            <form onSubmit={handleSubmit}>
+              <div className="mb-4">
+                <label htmlFor="name" className="block text-gray-700 font-medium mb-2">Nombre</label>
+                <input type="text" id="name" name="name" value={formData.name} onChange={handleInputChange} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition" required />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="email" className="block text-gray-700 font-medium mb-2">Email</label>
+                <input type="email" id="email" name="email" value={formData.email} onChange={handleInputChange} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition" required />
+              </div>
+              <div className="mb-6">
+                <label htmlFor="message" className="block text-gray-700 font-medium mb-2">Mensaje</label>
+                <textarea id="message" name="message" rows={5} value={formData.message} onChange={handleInputChange} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition" required></textarea>
+              </div>
+              <div className="text-center">
+                <button 
+                  type="submit" 
+                  disabled={status === 'sending'}
+                  className="bg-orange-500 text-white font-bold py-3 px-10 rounded-full hover:bg-orange-600 transition-transform duration-300 transform hover:scale-105 text-lg disabled:bg-orange-300 disabled:cursor-not-allowed"
+                >
+                  {status === 'sending' ? 'Enviando...' : 'Enviar Mensaje'}
+                </button>
+              </div>
+              {status === 'error' && (
+                <p className="text-center mt-4 text-red-600 bg-red-100 p-3 rounded-lg">{responseMessage}</p>
+              )}
+            </form>
+          )}
         </div>
          <div className="text-center mt-8">
             <p className="text-gray-600">O si lo prefieres, escríbeme directamente a:</p>
@@ -347,12 +396,41 @@ const ContactForm: React.FC = () => {
 // --- MAIN APP COMPONENT ---
 
 export default function App() {
-  const openBlog = () => {
-    // This simulates opening a new page for the full blog.
-    // A real implementation would use a router or a separate HTML page.
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [isLoadingPosts, setIsLoadingPosts] = useState(true);
+  const [postsError, setPostsError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        setIsLoadingPosts(true);
+        // This URL should point to your Laravel backend endpoint for posts.
+        const response = await fetch('http://127.0.0.1:8000/api/posts');
+        if (!response.ok) {
+          throw new Error('No se pudieron cargar las entradas del blog.');
+        }
+        const data: BlogPost[] = await response.json();
+        setPosts(data);
+      } catch (err) {
+        if (err instanceof Error) {
+          setPostsError(err.message);
+        } else {
+          setPostsError('Ocurrió un error desconocido al cargar el blog.');
+        }
+        // In case of error, you might want to set empty posts or some mock data
+        setPosts([]);
+      } finally {
+        setIsLoadingPosts(false);
+      }
+    };
+    fetchPosts();
+  }, []); // Empty dependency array means this effect runs once when the component mounts.
+
+  const openBlog = async () => {
     const blogWindow = window.open("", "_blank");
-    if (blogWindow) {
-      blogWindow.document.write(`
+    if (!blogWindow) return;
+
+    blogWindow.document.write(`
         <html>
           <head>
             <title>Blog de Leonardo Góngora</title>
@@ -362,19 +440,41 @@ export default function App() {
           </head>
           <body class="bg-slate-50 text-gray-800 p-10">
             <h1 class="text-4xl font-bold text-green-700 mb-8">Blog de un Corrector</h1>
-            ${blogData.map(post => `
-              <div class="mb-8 p-6 bg-white rounded-lg shadow-md">
-                <h2 class="text-2xl font-bold text-green-600">${post.title}</h2>
-                <p class="text-sm text-gray-500 mb-4">${post.date}</p>
-                <p class="text-gray-700">${post.fullContent}</p>
-              </div>
-            `).join('')}
+            <div id="content">Cargando...</div>
           </body>
         </html>
       `);
-      blogWindow.document.close();
+
+    try {
+        const response = await fetch('http://127.0.0.1:8000/api/posts');
+        if (!response.ok) {
+            throw new Error('Failed to load posts.');
+        }
+        const blogPosts: BlogPost[] = await response.json();
+
+        const content = blogPosts.map(post => `
+              <div class="mb-8 p-6 bg-white rounded-lg shadow-md">
+                <h2 class="text-2xl font-bold text-green-600">${post.title}</h2>
+                <p class="text-sm text-gray-500 mb-4">${post.date}</p>
+                <p class="text-gray-700">${post.fullContent || post.excerpt}</p>
+              </div>
+            `).join('');
+
+        const contentDiv = blogWindow.document.getElementById('content');
+        if (contentDiv) {
+            contentDiv.innerHTML = content;
+        }
+
+    } catch (error) {
+        const contentDiv = blogWindow.document.getElementById('content');
+        if (contentDiv) {
+            contentDiv.innerHTML = `<p class="text-red-500">Error al cargar el blog. Inténtalo de nuevo más tarde.</p>`;
+        }
+    } finally {
+        blogWindow.document.close();
     }
   }
+
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -435,16 +535,23 @@ export default function App() {
               <h2 className="text-4xl font-extrabold text-green-700">Desde mi escritorio</h2>
               <p className="text-lg text-gray-600 mt-2">Reflexiones y consejos sobre el arte de escribir bien.</p>
             </div>
-            <div className="grid md:grid-cols-2 gap-8">
-              {blogData.map((post) => (
-                <div key={post.id} className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 flex flex-col">
-                  <p className="text-sm text-gray-500 mb-2">{post.date}</p>
-                  <h3 className="text-2xl font-bold text-green-600 mb-3">{post.title}</h3>
-                  <p className="text-gray-600 mb-4 flex-grow">{post.excerpt}</p>
-                  <button onClick={openBlog} className="font-semibold text-orange-500 hover:text-orange-600 self-start">Leer más →</button>
-                </div>
-              ))}
-            </div>
+            {isLoadingPosts && <div className="text-center">Cargando entradas del blog...</div>}
+            {postsError && <div className="text-center text-red-500 bg-red-100 p-4 rounded-lg">{postsError}</div>}
+            {!isLoadingPosts && !postsError && posts.length > 0 && (
+                 <div className="grid md:grid-cols-2 gap-8">
+                    {posts.map((post) => (
+                        <div key={post.id} className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 flex flex-col">
+                        <p className="text-sm text-gray-500 mb-2">{post.date}</p>
+                        <h3 className="text-2xl font-bold text-green-600 mb-3">{post.title}</h3>
+                        <p className="text-gray-600 mb-4 flex-grow">{post.excerpt}</p>
+                        <button onClick={openBlog} className="font-semibold text-orange-500 hover:text-orange-600 self-start">Leer más →</button>
+                        </div>
+                    ))}
+                 </div>
+            )}
+             {!isLoadingPosts && !postsError && posts.length === 0 && (
+                <div className="text-center text-gray-500">No hay entradas en el blog por el momento.</div>
+            )}
              <div className="text-center mt-12">
                 <button onClick={openBlog} className="bg-green-600 text-white font-bold py-3 px-8 rounded-full hover:bg-green-700 transition-transform duration-300 transform hover:scale-105">
                     Visitar el Blog Completo
