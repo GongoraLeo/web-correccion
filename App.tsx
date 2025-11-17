@@ -24,34 +24,60 @@ const DocumentTextIcon = () => (
 );
 
 const MenuIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
     </svg>
 );
 
 const XIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
     </svg>
 );
 
+// Social Media Icons
+const InstagramIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+    <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+  </svg>
+);
+
+const ThreadsIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="currentColor" viewBox="0 0 16 16">
+    <path d="M6.321 6.016c-.27-.18-1.166-.802-1.166-1.932 0-.902.556-1.665 1.562-1.665.955 0 1.438.49 1.438 1.188 0 .524-.262.921-.437.921-.194 0-.359-.22-.359-.466 0-.317.144-.559.4-.559.208 0 .323.153.323.325 0 .14-.07.28-.23.395l-.16.115.16.115c.16.115.23.255.23.395 0 .172-.115.325-.323.325-.256 0-.4-.242-.4-.559 0-.246.165-.466.359-.466.175 0 .437.4.437.921 0 .698-.483 1.188-1.438 1.188-1.006 0-1.562-.763-1.562-1.665 0-1.13 1.006-1.77 1.256-1.922l.189-.115.189.115c.25.152 1.256.792 1.256 1.922 0 .902-.556 1.665-1.562 1.665-.955 0-1.438-.49-1.438-1.188 0-.524.262-.921.437-.921.194 0 .359-.22.359-.466 0-.317-.144-.559-.4-.559-.208 0-.323.153-.323.325 0 .14-.07.28-.23.395l-.16.115.16.115c.16.115.23.255.23.395 0 .172-.115.325-.323.325-.256 0-.4-.242-.4-.559 0-.246.165-.466.359-.466.175 0 .437.4.437.921 0 .698-.483 1.188-1.438 1.188-1.006 0-1.562-.763-1.562-1.665zM11.5 8.042c0 1.6-1.16 2.623-2.76 2.623-1.564 0-2.648-1.02-2.648-2.623 0-1.6 1.084-2.623 2.648-2.623 1.6 0 2.76 1.022 2.76 2.623zm-1.157 0c0-1.01-.623-1.72-1.6-1.72s-1.6.71-1.6 1.72c0 1.01.623 1.72 1.6 1.72s1.6-.71 1.6-1.72z"></path>
+  </svg>
+);
+
+const BlueskyIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="currentColor" viewBox="0 0 16 16">
+    <path d="M10.334 4.542.882 7.77l5.44 1.734L4.85 14.86l5.484-3.235 1.463 4.413 3.32-1.42L11.796 0 10.334 4.542Zm.99 1.157-1.12 3.376 3.16-1.865-2.04-1.51Z"/>
+  </svg>
+);
+
+const FacebookIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M12 2.04c-5.5 0-9.96 4.46-9.96 9.96s4.46 9.96 9.96 9.96c5.5 0 9.96-4.46 9.96-9.96S17.5 2.04 12 2.04zM13.5 8h-1.5c-.28 0-.5.22-.5.5v1.5h2v1.5h-2v4.5h-2v-4.5h-1V10h1V8.5c0-.83.67-1.5 1.5-1.5h1.5v1z"></path>
+  </svg>
+);
 
 // --- MOCK DATA ---
 
 const servicesData: Service[] = [
   {
     title: "Corrección Ortotipográfica",
-    description: "Revisión exhaustiva de gramática, puntuación, acentuación y errores tipográficos para garantizar un texto impecable y profesional.",
+    description: "Revisión exhaustiva de gramática, puntuación y tipografía. Ideal para novelas, tesis, y cualquier texto que requiera un acabado impecable y profesional.",
     icon: <PencilIcon />,
   },
   {
     title: "Corrección de Estilo",
-    description: "Mejora de la cohesión, claridad y fluidez del texto. Adecuación del tono y el registro al público objetivo y al propósito del escrito.",
+    description: "Mejora de la cohesión, claridad y fluidez del texto. Perfecciono la estructura de las frases para que tu voz como autor brille con fuerza.",
     icon: <BookOpenIcon />,
   },
   {
     title: "Informes de Lectura",
-    description: "Análisis detallado de manuscritos, evaluando la estructura, personajes, ritmo y potencial comercial para editoriales o autores.",
+    description: "Análisis editorial detallado de manuscritos (estructura, personajes, ritmo, potencial comercial). Una herramienta clave para autores que buscan publicar.",
     icon: <DocumentTextIcon />,
   },
 ];
@@ -94,36 +120,47 @@ const Header: React.FC<HeaderProps> = ({ onOpenBlog }) => {
         }
     };
     
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+        return () => {
+          document.body.style.overflow = 'auto';
+        };
+    }, [isOpen]);
+
     return (
-        <header className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
-            <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-                <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' });}} className="text-2xl font-bold text-green-700">Leonardo Góngora</a>
-                <nav className="hidden md:flex space-x-8">
-                    {navLinks.map(link => (
-                         <a key={link.href} 
-                            href={link.href} 
-                            onClick={(e) => handleLinkClick(e, link.href)} 
-                            className="text-gray-600 hover:text-orange-500 transition-colors duration-300 font-medium cursor-pointer">
-                            {link.label}
-                         </a>
-                    ))}
-                </nav>
-                <div className="md:hidden">
-                    <button onClick={() => setIsOpen(!isOpen)} className="text-green-700 focus:outline-none">
+        <>
+            <header className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
+                <div className="container mx-auto px-6 py-4 flex justify-between items-center">
+                    <a href="#" onClick={(e) => { e.preventDefault(); setIsOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' });}} className="text-2xl font-bold text-green-700">CorrectorDeTextos.es</a>
+                    <button 
+                        onClick={() => setIsOpen(!isOpen)} 
+                        className="text-green-700 focus:outline-none z-[60]"
+                        aria-label="Toggle menu"
+                    >
                         {isOpen ? <XIcon /> : <MenuIcon />}
                     </button>
                 </div>
+            </header>
+            
+            <div className={`fixed inset-0 bg-white z-40 flex flex-col items-center justify-center transition-opacity duration-300 ease-in-out ${isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+                <nav className="flex flex-col items-center space-y-6">
+                    {navLinks.map(link => (
+                        <a 
+                            key={link.href} 
+                            href={link.href} 
+                            onClick={(e) => handleLinkClick(e, link.href)} 
+                            className="text-2xl md:text-3xl text-gray-700 hover:text-orange-500 transition-colors duration-300 font-semibold"
+                        >
+                            {link.label}
+                        </a>
+                    ))}
+                </nav>
             </div>
-            {isOpen && (
-                <div className="md:hidden bg-white pb-4">
-                    <nav className="flex flex-col items-center space-y-4">
-                        {navLinks.map(link => (
-                            <a key={link.href} href={link.href} onClick={(e) => handleLinkClick(e, link.href)} className="text-gray-600 hover:text-orange-500 transition-colors duration-300 font-medium">{link.label}</a>
-                        ))}
-                    </nav>
-                </div>
-            )}
-        </header>
+        </>
     );
 };
 
@@ -132,13 +169,13 @@ const HeroSection: React.FC = () => (
     <section className="bg-white">
         <div className="container mx-auto px-6 py-24 text-center">
             <h1 className="text-4xl md:text-6xl font-extrabold text-green-700 leading-tight mb-4">
-                La palabra precisa, el estilo perfecto.
+                Corrector de Textos Profesional
             </h1>
             <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-                Transformo tus textos en obras claras, coherentes y sin errores. Dale a tu mensaje la calidad que merece.
+                Servicios de corrección ortotipográfica y de estilo para autores, editoriales y empresas. Asegura que tu mensaje sea claro, preciso e impactante.
             </p>
-            <a href="#servicios" onClick={(e) => { e.preventDefault(); document.getElementById('servicios')?.scrollIntoView({behavior: 'smooth'})}} className="mt-8 inline-block bg-orange-500 text-white font-bold py-3 px-8 rounded-full hover:bg-orange-600 transition-transform duration-300 transform hover:scale-105">
-                Descubre mis servicios
+            <a href="#contacto" onClick={(e) => { e.preventDefault(); document.getElementById('contacto')?.scrollIntoView({behavior: 'smooth'})}} className="mt-8 inline-block bg-orange-500 text-white font-bold py-3 px-8 rounded-full hover:bg-orange-600 transition-transform duration-300 transform hover:scale-105">
+                Pide tu presupuesto gratuito
             </a>
         </div>
     </section>
@@ -184,18 +221,19 @@ const WordCounter: React.FC = () => {
 
   return (
     <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
-      <h3 className="text-2xl font-bold text-green-700 mb-4 text-center">Contador de Palabras y Matrices</h3>
+      <h3 className="text-2xl font-bold text-green-700 mb-4 text-center">Contador de Palabras y Matrices para Escritores</h3>
       <textarea
         className="w-full h-48 p-4 bg-gray-800 text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-shadow duration-200 placeholder:text-gray-400"
-        placeholder="Escribe o pega tu texto aquí..."
+        placeholder="Escribe o pega tu texto aquí para analizarlo..."
         value={text}
         onChange={(e) => setText(e.target.value)}
+        aria-label="Área de texto para contar palabras y caracteres"
       ></textarea>
       <div className="mt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="text-center sm:text-left">
             <input
                 type="file"
-                accept=".txt,.md"
+                accept=".txt,.md,.docx"
                 onChange={handleFileChange}
                 ref={fileInputRef}
                 className="hidden"
@@ -207,7 +245,7 @@ const WordCounter: React.FC = () => {
             >
                 Subir archivo
             </button>
-            <p className="text-xs text-gray-500 mt-2">Admite archivos de texto plano (.txt, .md).</p>
+            <p className="text-xs text-gray-500 mt-2">Admite .txt, .md, etc.</p>
         </div>
         <div className="flex gap-2">
             <button onClick={clearText} className="py-2 px-6 bg-gray-200 text-gray-700 font-semibold rounded-full hover:bg-gray-300 transition-colors">Limpiar</button>
@@ -224,7 +262,7 @@ const WordCounter: React.FC = () => {
           <p className="text-sm text-gray-600">Matrices</p>
         </div>
       </div>
-      <p className="text-xs text-gray-500 mt-4 text-center">Las matrices son el número total de caracteres, incluyendo espacios. Es la medida estándar en el sector editorial para calcular presupuestos.</p>
+      <p className="text-xs text-gray-500 mt-4 text-center">Las matrices (caracteres con espacios) son la medida estándar en el sector editorial para calcular presupuestos de corrección.</p>
     </div>
   );
 };
@@ -260,7 +298,7 @@ const NewsSection: React.FC = () => {
             <div className="container mx-auto px-6">
                 <div className="text-center mb-12">
                     <h2 className="text-4xl font-extrabold text-green-700">Noticias de Lengua y Literatura</h2>
-                    <p className="text-lg text-gray-600 mt-2">Actualizaciones interesantes del mundo de las letras, por Gemini.</p>
+                    <p className="text-lg text-gray-600 mt-2">Actualizaciones interesantes del mundo de las letras, curadas por IA.</p>
                 </div>
                 {isLoading && <div className="text-center">Cargando noticias...</div>}
                 {error && <div className="text-center text-red-500 bg-red-100 p-4 rounded-lg">{error}</div>}
@@ -303,9 +341,8 @@ const ContactForm: React.FC = () => {
     setResponseMessage('');
 
     try {
-      // This URL should point to your Laravel backend endpoint.
-      // For local development, it will be something like 'http://127.0.0.1:8000/api/contact'.
-      const response = await fetch('http://127.0.0.1:8000/api/contact', {
+      // FIX: Replaced with placeholder. Configure this with your actual backend endpoint.
+      const response = await fetch('https://your-backend-api.com/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -317,18 +354,16 @@ const ContactForm: React.FC = () => {
       const result = await response.json();
 
       if (!response.ok) {
-        // Handle validation errors or other server errors
         throw new Error(result.message || 'Ocurrió un error en el servidor.');
       }
 
       setStatus('success');
       setResponseMessage(result.message || '¡Mensaje enviado con éxito! Te responderé pronto.');
-      setFormData({ name: '', email: '', message: '' }); // Clear form
+      setFormData({ name: '', email: '', message: '' });
 
     } catch (error) {
       setStatus('error');
       if (error instanceof Error) {
-        // Network errors or other issues with fetch will be caught here.
         setResponseMessage(error.message || 'No se pudo enviar el mensaje. Por favor, inténtalo más tarde.');
       } else {
         setResponseMessage('Ocurrió un error inesperado.');
@@ -341,19 +376,20 @@ const ContactForm: React.FC = () => {
     <section id="contacto" className="py-20 scroll-mt-20">
       <div className="container mx-auto px-6 max-w-3xl">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-extrabold text-green-700 mb-4">¿Hablamos?</h2>
+          <h2 className="text-4xl font-extrabold text-green-700 mb-4">¿Hablamos de tu proyecto?</h2>
           <p className="text-lg text-gray-600">
-            Si tienes un proyecto en mente o alguna duda, rellena el formulario o envíame un correo. Estaré encantado de ayudarte.
+            Rellena el formulario para solicitar un presupuesto o resolver cualquier duda. Estaré encantado de ayudarte a que tu texto brille.
           </p>
         </div>
         <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 max-w-xl mx-auto">
           {status === 'success' ? (
              <div className="text-center p-4 bg-green-100 text-green-800 rounded-lg">
-                <p className="font-bold">¡Gracias!</p>
+                <p className="font-bold">¡Gracias por tu mensaje!</p>
                 <p>{responseMessage}</p>
              </div>
           ) : (
             <form onSubmit={handleSubmit}>
+              <p className="text-sm text-gray-500 text-center mb-6">Tu texto está seguro conmigo. La confidencialidad está garantizada.</p>
               <div className="mb-4">
                 <label htmlFor="name" className="block text-gray-700 font-medium mb-2">Nombre</label>
                 <input type="text" id="name" name="name" value={formData.name} onChange={handleInputChange} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition" required />
@@ -363,7 +399,7 @@ const ContactForm: React.FC = () => {
                 <input type="email" id="email" name="email" value={formData.email} onChange={handleInputChange} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition" required />
               </div>
               <div className="mb-6">
-                <label htmlFor="message" className="block text-gray-700 font-medium mb-2">Mensaje</label>
+                <label htmlFor="message" className="block text-gray-700 font-medium mb-2">Mensaje (puedes incluir el número de palabras/matrices si lo conoces)</label>
                 <textarea id="message" name="message" rows={5} value={formData.message} onChange={handleInputChange} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition" required></textarea>
               </div>
               <div className="text-center">
@@ -383,8 +419,8 @@ const ContactForm: React.FC = () => {
         </div>
          <div className="text-center mt-8">
             <p className="text-gray-600">O si lo prefieres, escríbeme directamente a:</p>
-            <a href="mailto:contacto@leonardogongora.com" className="font-semibold text-green-600 hover:text-green-700 text-lg">
-                contacto@leonardogongora.com
+            <a href="mailto:contacto@correctordetextos.es" className="font-semibold text-green-600 hover:text-green-700 text-lg">
+                contacto@correctordetextos.es
             </a>
         </div>
       </div>
@@ -404,8 +440,8 @@ export default function App() {
     const fetchPosts = async () => {
       try {
         setIsLoadingPosts(true);
-        // This URL should point to your Laravel backend endpoint for posts.
-        const response = await fetch('http://127.0.0.1:8000/api/posts');
+        // FIX: Replaced with placeholder. Configure this with your actual backend endpoint.
+        const response = await fetch('https://your-backend-api.com/api/posts');
         if (!response.ok) {
           throw new Error('No se pudieron cargar las entradas del blog.');
         }
@@ -417,14 +453,13 @@ export default function App() {
         } else {
           setPostsError('Ocurrió un error desconocido al cargar el blog.');
         }
-        // In case of error, you might want to set empty posts or some mock data
         setPosts([]);
       } finally {
         setIsLoadingPosts(false);
       }
     };
     fetchPosts();
-  }, []); // Empty dependency array means this effect runs once when the component mounts.
+  }, []);
 
   const openBlog = async () => {
     const blogWindow = window.open("", "_blank");
@@ -433,7 +468,7 @@ export default function App() {
     blogWindow.document.write(`
         <html>
           <head>
-            <title>Blog de Leonardo Góngora</title>
+            <title>Blog de un Corrector de Textos | Leonardo Góngora</title>
             <script src="https://cdn.tailwindcss.com"></script>
             <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
             <style>body { font-family: 'Montserrat', sans-serif; }</style>
@@ -446,7 +481,8 @@ export default function App() {
       `);
 
     try {
-        const response = await fetch('http://127.0.0.1:8000/api/posts');
+        // FIX: Replaced with placeholder. Configure this with your actual backend endpoint.
+        const response = await fetch('https://your-backend-api.com/api/posts');
         if (!response.ok) {
             throw new Error('Failed to load posts.');
         }
@@ -456,7 +492,7 @@ export default function App() {
               <div class="mb-8 p-6 bg-white rounded-lg shadow-md">
                 <h2 class="text-2xl font-bold text-green-600">${post.title}</h2>
                 <p class="text-sm text-gray-500 mb-4">${post.date}</p>
-                <p class="text-gray-700">${post.fullContent || post.excerpt}</p>
+                <div class="text-gray-700 leading-relaxed">${post.fullContent || post.excerpt}</div>
               </div>
             `).join('');
 
@@ -485,15 +521,15 @@ export default function App() {
         <section id="servicios" className="py-20 scroll-mt-20">
           <div className="container mx-auto px-6">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-extrabold text-green-700">Mis Servicios</h2>
-              <p className="text-lg text-gray-600 mt-2">Soluciones a medida para que tus textos brillen.</p>
+              <h2 className="text-4xl font-extrabold text-green-700">Servicios de Corrección Editorial</h2>
+              <p className="text-lg text-gray-600 mt-2">Soluciones a medida para que tus textos alcancen la excelencia.</p>
             </div>
             <div className="grid md:grid-cols-3 gap-8">
               {servicesData.map((service, index) => (
-                <div key={index} className="bg-white p-8 rounded-2xl shadow-lg text-center transform hover:-translate-y-2 transition-transform duration-300 border border-gray-100">
-                  <div className="inline-block p-4 bg-orange-100 rounded-full mb-4">{service.icon}</div>
+                <div key={index} className="bg-white p-8 rounded-2xl shadow-lg text-center transform hover:-translate-y-2 transition-transform duration-300 border border-gray-100 flex flex-col">
+                  <div className="inline-block p-4 bg-orange-100 rounded-full mb-4 mx-auto">{service.icon}</div>
                   <h3 className="text-2xl font-bold text-green-600 mb-3">{service.title}</h3>
-                  <p className="text-gray-600">{service.description}</p>
+                  <p className="text-gray-600 flex-grow">{service.description}</p>
                 </div>
               ))}
             </div>
@@ -501,13 +537,13 @@ export default function App() {
         </section>
 
         <section id="precios" className="py-20 bg-green-50 scroll-mt-20">
-            <div className="container mx-auto px-6 text-center max-w-3xl">
-                <h2 className="text-4xl font-extrabold text-green-700">Precios Competitivos y a Medida</h2>
-                <p className="text-lg text-gray-600 mt-4 mx-auto">
-                    Cada texto es único. Por eso, ofrezco presupuestos personalizados que se ajustan a tus necesidades. La máxima calidad no tiene por qué ser cara.
+            <div className="container mx-auto px-6 text-center max-w-4xl">
+                <h2 className="text-4xl font-extrabold text-green-700">Precios Claros y Transparentes</h2>
+                <p className="text-lg text-gray-600 mt-4 mx-auto max-w-3xl">
+                    Cada texto es único. Ofrezco presupuestos personalizados que se ajustan a tus necesidades. La máxima calidad no tiene por qué ser cara. Para recibir una cotización precisa, simplemente envíame tu manuscrito o un fragmento a través del formulario de contacto.
                 </p>
-                <a href="mailto:contacto@leonardogongora.com" className="mt-8 inline-block bg-green-600 text-white font-bold py-3 px-8 rounded-full hover:bg-green-700 transition-transform duration-300 transform hover:scale-105">
-                    Consulta tu precio
+                <a href="#contacto" onClick={(e) => { e.preventDefault(); document.getElementById('contacto')?.scrollIntoView({behavior: 'smooth'})}} className="mt-8 inline-block bg-green-600 text-white font-bold py-3 px-8 rounded-full hover:bg-green-700 transition-transform duration-300 transform hover:scale-105">
+                    Solicita tu Presupuesto Personalizado
                 </a>
             </div>
         </section>
@@ -515,15 +551,15 @@ export default function App() {
         <section id="sobre-mi" className="py-20 bg-white scroll-mt-20">
           <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=2070&auto=format&fit=crop" alt="Escritorio con libros y material de escritura" className="rounded-2xl shadow-2xl w-full h-full object-cover" />
+              <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=1971&auto=format&fit=crop" alt="Escritorio de trabajo de un corrector de textos con una máquina de escribir y manuscritos" className="rounded-2xl shadow-2xl w-full object-cover aspect-[4/3]" />
             </div>
             <div>
-              <h2 className="text-4xl font-extrabold text-green-700 mb-4">Más de una década entre libros</h2>
+              <h2 className="text-4xl font-extrabold text-green-700 mb-4">Más de una década como lector editorial</h2>
               <p className="text-gray-700 mb-4 leading-relaxed">
-                Mi pasión por la lectura me llevó al mundo editorial hace más de 10 años. Durante este tiempo, he desarrollado un ojo crítico y una sensibilidad especial para encontrar el potencial en cada manuscrito.
+                Mi pasión por la lectura me llevó al mundo editorial hace más de 10 años. Como <strong className="font-semibold">lector editorial y corrector de textos</strong>, he desarrollado un ojo crítico y una sensibilidad especial para encontrar el potencial en cada manuscrito.
               </p>
               <p className="text-gray-700 leading-relaxed">
-                Desde hace 7 años, me dedico profesionalmente a la corrección y he tenido el placer de formar a nuevas generaciones de correctores, compartiendo las mejores prácticas y los secretos del oficio. Mi objetivo es simple: que tu mensaje llegue al lector de la forma más clara, precisa y elegante posible.
+                Desde hace 7 años, me dedico profesionalmente a la corrección y he tenido el placer de formar a nuevas generaciones de correctores. Mi objetivo es simple: que tu mensaje, ya sea en una <strong className="font-semibold">novela, un relato o un informe</strong>, llegue al lector de la forma más clara, precisa y elegante posible.
               </p>
             </div>
           </div>
@@ -532,14 +568,14 @@ export default function App() {
         <section id="blog" className="py-20 scroll-mt-20">
           <div className="container mx-auto px-6">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-extrabold text-green-700">Desde mi escritorio</h2>
-              <p className="text-lg text-gray-600 mt-2">Reflexiones y consejos sobre el arte de escribir bien.</p>
+              <h2 className="text-4xl font-extrabold text-green-700">Desde mi escritorio: Blog del Corrector</h2>
+              <p className="text-lg text-gray-600 mt-2">Reflexiones y consejos sobre el arte de la corrección de textos.</p>
             </div>
             {isLoadingPosts && <div className="text-center">Cargando entradas del blog...</div>}
             {postsError && <div className="text-center text-red-500 bg-red-100 p-4 rounded-lg">{postsError}</div>}
             {!isLoadingPosts && !postsError && posts.length > 0 && (
                  <div className="grid md:grid-cols-2 gap-8">
-                    {posts.map((post) => (
+                    {posts.slice(0, 2).map((post) => (
                         <div key={post.id} className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 flex flex-col">
                         <p className="text-sm text-gray-500 mb-2">{post.date}</p>
                         <h3 className="text-2xl font-bold text-green-600 mb-3">{post.title}</h3>
@@ -574,7 +610,21 @@ export default function App() {
 
       <footer className="bg-green-800 text-white">
         <div className="container mx-auto px-6 py-8 text-center">
-            <p>&copy; {new Date().getFullYear()} Leonardo Góngora. Todos los derechos reservados.</p>
+            <div className="flex justify-center space-x-6 mb-4">
+                <a href="#" aria-label="Instagram" target="_blank" rel="noopener noreferrer" className="text-green-200 hover:text-white transition-colors duration-300">
+                    <InstagramIcon />
+                </a>
+                <a href="#" aria-label="Threads" target="_blank" rel="noopener noreferrer" className="text-green-200 hover:text-white transition-colors duration-300">
+                    <ThreadsIcon />
+                </a>
+                <a href="#" aria-label="Bluesky" target="_blank" rel="noopener noreferrer" className="text-green-200 hover:text-white transition-colors duration-300">
+                    <BlueskyIcon />
+                </a>
+                <a href="#" aria-label="Facebook" target="_blank" rel="noopener noreferrer" className="text-green-200 hover:text-white transition-colors duration-300">
+                    <FacebookIcon />
+                </a>
+            </div>
+            <p>&copy; {new Date().getFullYear()} CorrectorDeTextos.es | Todos los derechos reservados.</p>
             <p className="text-sm text-green-200 mt-2">Diseño y desarrollo con pasión por la palabra escrita.</p>
         </div>
       </footer>
