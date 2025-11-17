@@ -35,6 +35,44 @@ const XIcon = () => (
     </svg>
 );
 
+// New Section Icons
+const BadgeIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+    </svg>
+);
+
+const LightBulbIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+    </svg>
+);
+
+const ClockIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+);
+
+const MagnifyingGlassIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+    </svg>
+);
+
+const MapIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l5.447 2.724A1 1 0 0021 16.382V5.618a1 1 0 00-1.447-.894L15 7m-6 13l6-3m0 0V7" />
+    </svg>
+);
+
+const BuildingIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+    </svg>
+);
+
+
 // Social Media Icons
 const InstagramIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -46,7 +84,7 @@ const InstagramIcon = () => (
 
 const ThreadsIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="currentColor" viewBox="0 0 16 16">
-    <path d="M6.321 6.016c-.27-.18-1.166-.802-1.166-1.932 0-.902.556-1.665 1.562-1.665.955 0 1.438.49 1.438 1.188 0 .524-.262.921-.437.921-.194 0-.359-.22-.359-.466 0-.317.144-.559.4-.559.208 0 .323.153.323.325 0 .14-.07.28-.23.395l-.16.115.16.115c.16.115.23.255.23.395 0 .172-.115.325-.323.325-.256 0-.4-.242-.4-.559 0-.246.165-.466.359-.466.175 0 .437.4.437.921 0 .698-.483 1.188-1.438 1.188-1.006 0-1.562-.763-1.562-1.665 0-1.13 1.006-1.77 1.256-1.922l.189-.115.189.115c.25.152 1.256.792 1.256 1.922 0 .902-.556 1.665-1.562 1.665-.955 0-1.438-.49-1.438-1.188 0-.524.262-.921.437-.921.194 0 .359-.22.359-.466 0-.317-.144-.559-.4-.559-.208 0-.323.153-.323.325 0 .14-.07.28-.23.395l-.16.115.16.115c.16.115.23.255.23.395 0 .172-.115.325-.323.325-.256 0-.4-.242-.4-.559 0-.246.165-.466.359-.466.175 0 .437.4.437.921 0 .698-.483 1.188-1.438 1.188-1.006 0-1.562-.763-1.562-1.665zM11.5 8.042c0 1.6-1.16 2.623-2.76 2.623-1.564 0-2.648-1.02-2.648-2.623 0-1.6 1.084-2.623 2.648-2.623 1.6 0 2.76 1.022 2.76 2.623zm-1.157 0c0-1.01-.623-1.72-1.6-1.72s-1.6.71-1.6 1.72c0 1.01.623 1.72 1.6 1.72s1.6-.71 1.6-1.72z"></path>
+    <path d="M6.321 6.016c-.27-.18-1.166-.802-1.166-1.932 0-.902.556-1.665 1.562-1.665.955 0 1.438.49 1.438 1.188 0 .524-.262.921-.437.921-.194 0-.359-.22-.359-.466 0-.317.144-.559.4-.559.208 0 .323.153.323.325 0 .14-.07.28-.23.395l-.16.115.16.115c.16.115.23.255.23.395 0 .172-.115.325-.323.325-.256 0-.4-.242-.4-.559 0-.246.165-.466.359-.466.175 0 .437.4.437.921 0 .698-.483 1.188-1.438 1.188-1.006 0-1.562-.763-1.562-1.665 0-1.13 1.006-1.77 1.256-1.922l.189-.115.189.115c.25.152 1.256.792 1.256 1.922 0 .902-.556 1.665-1.562 1.665-.955 0-1.438-.49-1.438-1.188 0-.524.262-.921.437.921.194 0 .359-.22.359-.466 0-.317-.144-.559-.4-.559-.208 0-.323.153-.323.325 0 .14-.07.28-.23.395l-.16.115.16.115c.16.115.23.255.23.395 0 .172-.115.325-.323.325-.256 0-.4-.242-.4-.559 0-.246.165-.466.359-.466.175 0 .437.4.437.921 0 .698-.483 1.188-1.438 1.188-1.006 0-1.562-.763-1.562-1.665zM11.5 8.042c0 1.6-1.16 2.623-2.76 2.623-1.564 0-2.648-1.02-2.648-2.623 0-1.6 1.084-2.623 2.648-2.623 1.6 0 2.76 1.022 2.76 2.623zm-1.157 0c0-1.01-.623-1.72-1.6-1.72s-1.6.71-1.6 1.72c0 1.01.623 1.72 1.6 1.72s1.6-.71 1.6-1.72z"></path>
   </svg>
 );
 
@@ -536,7 +574,45 @@ export default function App() {
           </div>
         </section>
 
-        <section id="precios" className="py-20 bg-green-50 scroll-mt-20">
+        <section className="py-20 bg-green-50">
+          <div className="container mx-auto px-6">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-extrabold text-green-700">¿Necesito un corrector de textos?</h2>
+              <p className="text-lg text-gray-600 mt-2 max-w-3xl mx-auto">Invertir en una corrección profesional es invertir en la calidad y el éxito de tu comunicación.</p>
+            </div>
+            <div className="max-w-4xl mx-auto space-y-10">
+                <div className="flex items-start gap-6">
+                    <div className="flex-shrink-0 w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-md border border-gray-200">
+                        <BadgeIcon />
+                    </div>
+                    <div>
+                        <h3 className="text-2xl font-bold text-green-600 mb-2">Imagen Profesional</h3>
+                        <p className="text-gray-700 leading-relaxed">Un texto sin errores transmite credibilidad y respeto por el lector. Es tu mejor carta de presentación ante editoriales y clientes.</p>
+                    </div>
+                </div>
+                <div className="flex items-start gap-6">
+                    <div className="flex-shrink-0 w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-md border border-gray-200">
+                        <LightBulbIcon />
+                    </div>
+                    <div>
+                        <h3 className="text-2xl font-bold text-green-600 mb-2">Claridad del Mensaje</h3>
+                        <p className="text-gray-700 leading-relaxed">Me aseguro de que tus ideas se entiendan perfectamente, eliminando ambigüedades, puliendo la sintaxis y facilitando la lectura.</p>
+                    </div>
+                </div>
+                <div className="flex items-start gap-6">
+                    <div className="flex-shrink-0 w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-md border border-gray-200">
+                        <ClockIcon />
+                    </div>
+                    <div>
+                        <h3 className="text-2xl font-bold text-green-600 mb-2">Ahorro de Tiempo</h3>
+                        <p className="text-gray-700 leading-relaxed">Dedica tu valioso tiempo a lo que mejor sabes hacer: crear. Yo me encargo de la revisión técnica para pulir tu obra a la perfección.</p>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="precios" className="py-20 bg-white scroll-mt-20">
             <div className="container mx-auto px-6 text-center max-w-4xl">
                 <h2 className="text-4xl font-extrabold text-green-700">Precios Claros y Transparentes</h2>
                 <p className="text-lg text-gray-600 mt-4 mx-auto max-w-3xl">
@@ -548,19 +624,62 @@ export default function App() {
             </div>
         </section>
 
-        <section id="sobre-mi" className="py-20 bg-white scroll-mt-20">
-          <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=1971&auto=format&fit=crop" alt="Escritorio de trabajo de un corrector de textos con una máquina de escribir y manuscritos" className="rounded-2xl shadow-2xl w-full object-cover aspect-[4/3]" />
+        <section className="py-20 bg-white">
+          <div className="container mx-auto px-6">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-extrabold text-green-700">¿Me puede ayudar un informe de lectura?</h2>
+              <p className="text-lg text-gray-600 mt-2 max-w-3xl mx-auto">Es el primer paso para convertir un buen manuscrito en una obra publicable y exitosa.</p>
             </div>
-            <div>
-              <h2 className="text-4xl font-extrabold text-green-700 mb-4">Más de una década como lector editorial</h2>
+            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <div className="bg-green-50 p-8 rounded-2xl shadow-lg text-center border border-green-100 flex flex-col items-center transform hover:-translate-y-2 transition-transform duration-300">
+                    <div className="inline-block p-4 bg-white rounded-full mb-4 shadow-md"><MagnifyingGlassIcon /></div>
+                    <h3 className="text-2xl font-bold text-green-600 mb-3">Visión Objetiva</h3>
+                    <p className="text-gray-600">Recibe una opinión profesional y externa sobre los puntos fuertes y débiles de tu obra, sin filtros emocionales.</p>
+                </div>
+                <div className="bg-green-50 p-8 rounded-2xl shadow-lg text-center border border-green-100 flex flex-col items-center transform hover:-translate-y-2 transition-transform duration-300">
+                    <div className="inline-block p-4 bg-white rounded-full mb-4 shadow-md"><MapIcon /></div>
+                    <h3 className="text-2xl font-bold text-green-600 mb-3">Hoja de Ruta para Mejorar</h3>
+                    <p className="text-gray-600">El informe te proporciona pautas claras y accionables para reescribir y mejorar la estructura, ritmo y personajes.</p>
+                </div>
+                <div className="bg-green-50 p-8 rounded-2xl shadow-lg text-center border border-green-100 flex flex-col items-center transform hover:-translate-y-2 transition-transform duration-300">
+                    <div className="inline-block p-4 bg-white rounded-full mb-4 shadow-md"><BuildingIcon /></div>
+                    <h3 className="text-2xl font-bold text-green-600 mb-3">Potencial Editorial</h3>
+                    <p className="text-gray-600">Analizo la viabilidad comercial de tu manuscrito y te ayudo a prepararlo para presentarlo a agencias y editoriales.</p>
+                </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="sobre-mi" className="py-20 bg-green-50 scroll-mt-20">
+          <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+            <div className="order-1 md:order-2">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1887&auto=format&fit=crop" alt="Retrato profesional de Leonardo Góngora, corrector de textos" className="rounded-2xl shadow-2xl w-full object-cover aspect-[4/3]" />
+            </div>
+            <div className="order-2 md:order-1">
+              <h2 className="text-4xl font-extrabold text-green-700 mb-4">Soy Leonardo Góngora</h2>
               <p className="text-gray-700 mb-4 leading-relaxed">
                 Mi pasión por la lectura me llevó al mundo editorial hace más de 10 años. Como <strong className="font-semibold">lector editorial y corrector de textos</strong>, he desarrollado un ojo crítico y una sensibilidad especial para encontrar el potencial en cada manuscrito.
               </p>
-              <p className="text-gray-700 leading-relaxed">
+              <p className="text-gray-700 mb-6 leading-relaxed">
                 Desde hace 7 años, me dedico profesionalmente a la corrección y he tenido el placer de formar a nuevas generaciones de correctores. Mi objetivo es simple: que tu mensaje, ya sea en una <strong className="font-semibold">novela, un relato o un informe</strong>, llegue al lector de la forma más clara, precisa y elegante posible.
               </p>
+              <div className="flex items-center space-x-6">
+                <p className="font-semibold text-gray-700">Sígueme en redes:</p>
+                <div className="flex space-x-4">
+                  <a href="#" aria-label="Instagram" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-orange-500 transition-colors duration-300">
+                      <InstagramIcon />
+                  </a>
+                  <a href="#" aria-label="Threads" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-orange-500 transition-colors duration-300">
+                      <ThreadsIcon />
+                  </a>
+                  <a href="#" aria-label="Bluesky" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-orange-500 transition-colors duration-300">
+                      <BlueskyIcon />
+                  </a>
+                  <a href="#" aria-label="Facebook" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-orange-500 transition-colors duration-300">
+                      <FacebookIcon />
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </section>
