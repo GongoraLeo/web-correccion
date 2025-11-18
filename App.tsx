@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Service, BlogPost, NewsArticle } from './types';
 import { fetchLanguageNews } from './services/geminiService';
+import { blogPostsData } from './blogData';
 
 // --- ICONS (as components) ---
 
@@ -104,17 +105,17 @@ const FacebookIcon = () => (
 
 const servicesData: Service[] = [
   {
-    title: "Corrección Ortotipográfica",
+    title: "Corrección ortotipográfica",
     description: "Revisión exhaustiva de gramática, puntuación y tipografía. Ideal para novelas, tesis, y cualquier texto que requiera un acabado impecable y profesional.",
     icon: <PencilIcon />,
   },
   {
-    title: "Corrección de Estilo",
+    title: "Corrección de estilo",
     description: "Mejora de la cohesión, claridad y fluidez del texto. Perfecciono la estructura de las frases para que tu voz como autor brille con fuerza.",
     icon: <BookOpenIcon />,
   },
   {
-    title: "Informes de Lectura",
+    title: "Informes de lectura",
     description: "Análisis editorial detallado de manuscritos (estructura, personajes, ritmo, potencial comercial). Una herramienta clave para autores que buscan publicar.",
     icon: <DocumentTextIcon />,
   },
@@ -122,11 +123,7 @@ const servicesData: Service[] = [
 
 // --- SUB-COMPONENTS ---
 
-interface HeaderProps {
-  onOpenBlog: () => void;
-}
-
-const Header: React.FC<HeaderProps> = ({ onOpenBlog }) => {
+const Header: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     const navLinks = [
         { href: '#servicios', label: 'Servicios' },
@@ -138,23 +135,24 @@ const Header: React.FC<HeaderProps> = ({ onOpenBlog }) => {
         { href: '#contacto', label: 'Contacto' },
     ];
 
-    const handleLinkClick = (e: React.MouseEvent<HTMLElement>, href: string) => {
-        e.preventDefault();
+    const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
         setIsOpen(false);
-
-        if (href === '#blog') {
-             const targetElement = document.getElementById('blog');
-             if (targetElement) {
-                targetElement.scrollIntoView({ behavior: 'smooth' });
+        if (href.startsWith('#') && href.length > 1) {
+            if (href === '#blog') {
+                window.location.hash = href;
+            } else {
+                e.preventDefault();
+                // If we are not on the homepage, first navigate home
+                if (window.location.hash !== '') {
+                    window.location.hash = '';
+                    // Then scroll to the element after a short delay to allow the page to render
+                    setTimeout(() => {
+                        document.getElementById(href.substring(1))?.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                } else {
+                    document.getElementById(href.substring(1))?.scrollIntoView({ behavior: 'smooth' });
+                }
             }
-            return;
-        }
-
-        const targetId = href.substring(1);
-        const targetElement = document.getElementById(targetId);
-        
-        if (targetElement) {
-            targetElement.scrollIntoView({ behavior: 'smooth' });
         }
     };
     
@@ -173,7 +171,7 @@ const Header: React.FC<HeaderProps> = ({ onOpenBlog }) => {
         <>
             <header className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
                 <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-                    <a href="#" onClick={(e) => { e.preventDefault(); setIsOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' });}} className="text-2xl font-bold text-green-700">CorrectorDeTextos.es</a>
+                    <a href="#" onClick={(e) => { e.preventDefault(); setIsOpen(false); window.location.hash = ''; window.scrollTo({ top: 0, behavior: 'smooth' });}} className="text-2xl font-bold text-green-700">CorrectorDeTextos.eu</a>
                     <button 
                         onClick={() => setIsOpen(!isOpen)} 
                         className="text-green-700 focus:outline-none z-[60]"
@@ -207,7 +205,7 @@ const HeroSection: React.FC = () => (
     <section className="bg-white">
         <div className="container mx-auto px-6 py-24 text-center">
             <h1 className="text-4xl md:text-6xl font-extrabold text-green-700 leading-tight mb-4">
-                Corrector de Textos Profesional
+                Corrector de textos profesional
             </h1>
             <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
                 Servicios de corrección ortotipográfica y de estilo para autores, editoriales y empresas. Asegura que tu mensaje sea claro, preciso e impactante.
@@ -259,7 +257,7 @@ const WordCounter: React.FC = () => {
 
   return (
     <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
-      <h3 className="text-2xl font-bold text-green-700 mb-4 text-center">Contador de Palabras y Matrices para Escritores</h3>
+      <h3 className="text-2xl font-bold text-green-700 mb-4 text-center">Contador de palabras y matrices para escritores</h3>
       <textarea
         className="w-full h-48 p-4 bg-gray-800 text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-shadow duration-200 placeholder:text-gray-400"
         placeholder="Escribe o pega tu texto aquí para analizarlo..."
@@ -335,7 +333,7 @@ const NewsSection: React.FC = () => {
         <section id="noticias" className="py-20 bg-white scroll-mt-20">
             <div className="container mx-auto px-6">
                 <div className="text-center mb-12">
-                    <h2 className="text-4xl font-extrabold text-green-700">Noticias de Lengua y Literatura</h2>
+                    <h2 className="text-4xl font-extrabold text-green-700">Noticias de lengua y literatura</h2>
                     <p className="text-lg text-gray-600 mt-2">Actualizaciones interesantes del mundo de las letras, curadas por IA.</p>
                 </div>
                 {isLoading && <div className="text-center">Cargando noticias...</div>}
@@ -457,8 +455,8 @@ const ContactForm: React.FC = () => {
         </div>
          <div className="text-center mt-8">
             <p className="text-gray-600">O si lo prefieres, escríbeme directamente a:</p>
-            <a href="mailto:contacto@correctordetextos.es" className="font-semibold text-green-600 hover:text-green-700 text-lg">
-                contacto@correctordetextos.es
+            <a href="mailto:contacto@correctordetextos.eu" className="font-semibold text-green-600 hover:text-green-700 text-lg">
+                contacto@correctordetextos.eu
             </a>
         </div>
       </div>
@@ -466,265 +464,292 @@ const ContactForm: React.FC = () => {
   );
 };
 
+// --- BLOG COMPONENTS ---
+
+interface BlogListPageProps {
+    posts: BlogPost[];
+    onNavigate: (hash: string) => void;
+}
+
+const BlogListPage: React.FC<BlogListPageProps> = ({ posts, onNavigate }) => (
+    <section id="blog-list" className="py-20 scroll-mt-20">
+        <div className="container mx-auto px-6">
+            <div className="text-center mb-12">
+                <h1 className="text-4xl font-extrabold text-green-700">Desde mi escritorio: blog del corrector</h1>
+                <p className="text-lg text-gray-600 mt-2">Reflexiones y consejos sobre el arte de la corrección de textos.</p>
+            </div>
+            {posts.length > 0 ? (
+                <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                    {posts.map((post) => (
+                        <div key={post.id} className="bg-white rounded-2xl shadow-lg border border-gray-100 flex flex-col overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+                            <a href={`#blog/${post.id}`} onClick={(e) => { e.preventDefault(); onNavigate(`#blog/${post.id}`); }}>
+                                <img src={post.imageUrl} alt={`Imagen destacada para el post "${post.title}"`} className="w-full h-56 object-cover" />
+                            </a>
+                            <div className="p-8 flex flex-col flex-grow">
+                                <p className="text-sm text-gray-500 mb-2">{post.date}</p>
+                                <h2 className="text-2xl font-bold text-green-600 mb-3 flex-grow">
+                                    <a href={`#blog/${post.id}`} onClick={(e) => { e.preventDefault(); onNavigate(`#blog/${post.id}`); }} className="hover:text-orange-500 transition-colors">
+                                        {post.title}
+                                    </a>
+                                </h2>
+                                <p className="text-gray-600 mb-4">{post.excerpt}</p>
+                                <a href={`#blog/${post.id}`} onClick={(e) => { e.preventDefault(); onNavigate(`#blog/${post.id}`); }} className="font-semibold text-orange-500 hover:text-orange-600 self-start mt-auto">Leer más →</a>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            ) : (
+                <div className="text-center text-gray-500">No hay entradas en el blog por el momento.</div>
+            )}
+        </div>
+    </section>
+);
+
+interface BlogPostPageProps {
+    postId: string;
+    posts: BlogPost[];
+    onNavigate: (hash: string) => void;
+}
+
+const BlogPostPage: React.FC<BlogPostPageProps> = ({ postId, posts, onNavigate }) => {
+    const post = posts.find(p => p.id.toString() === postId);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [postId]);
+
+    if (!post) {
+        return (
+            <div className="text-center py-20">
+                <h1 className="text-2xl font-bold text-red-500">Entrada no encontrada</h1>
+                <a href="#blog" onClick={(e) => { e.preventDefault(); onNavigate('#blog'); }} className="text-green-600 hover:underline mt-4 inline-block">Volver al blog</a>
+            </div>
+        );
+    }
+
+    return (
+        <article className="py-20">
+            <div className="container mx-auto px-6 max-w-3xl">
+                <a href="#blog" onClick={(e) => { e.preventDefault(); onNavigate('#blog'); }} className="font-semibold text-green-600 hover:text-green-700 mb-8 inline-block">
+                    &larr; Volver al blog
+                </a>
+                <h1 className="text-4xl md:text-5xl font-extrabold text-green-700 leading-tight mb-4">{post.title}</h1>
+                <p className="text-gray-500 mb-6">{post.date}</p>
+                <img src={post.imageUrl} alt={`Imagen principal para ${post.title}`} className="rounded-2xl shadow-xl w-full object-cover aspect-video mb-8" />
+                <div
+                    className="prose prose-lg max-w-none text-gray-700 leading-relaxed space-y-4"
+                    dangerouslySetInnerHTML={{ __html: post.fullContent }}
+                />
+            </div>
+        </article>
+    );
+};
+
 
 // --- MAIN APP COMPONENT ---
 
 export default function App() {
-  const [posts, setPosts] = useState<BlogPost[]>([]);
-  const [isLoadingPosts, setIsLoadingPosts] = useState(true);
-  const [postsError, setPostsError] = useState<string | null>(null);
+  const [posts] = useState<BlogPost[]>(blogPostsData);
+  const [route, setRoute] = useState(window.location.hash);
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        setIsLoadingPosts(true);
-        // FIX: Replaced with placeholder. Configure this with your actual backend endpoint.
-        const response = await fetch('https://your-backend-api.com/api/posts');
-        if (!response.ok) {
-          throw new Error('No se pudieron cargar las entradas del blog.');
-        }
-        const data: BlogPost[] = await response.json();
-        setPosts(data);
-      } catch (err) {
-        if (err instanceof Error) {
-          setPostsError(err.message);
-        } else {
-          setPostsError('Ocurrió un error desconocido al cargar el blog.');
-        }
-        setPosts([]);
-      } finally {
-        setIsLoadingPosts(false);
-      }
-    };
-    fetchPosts();
+      const handleHashChange = () => {
+          setRoute(window.location.hash);
+      };
+      window.addEventListener('hashchange', handleHashChange);
+      return () => {
+          window.removeEventListener('hashchange', handleHashChange);
+      };
   }, []);
 
-  const openBlog = async () => {
-    const blogWindow = window.open("", "_blank");
-    if (!blogWindow) return;
+  const navigate = (hash: string) => {
+      window.location.hash = hash;
+  };
 
-    blogWindow.document.write(`
-        <html>
-          <head>
-            <title>Blog de un Corrector de Textos | Leonardo Góngora</title>
-            <script src="https://cdn.tailwindcss.com"></script>
-            <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
-            <style>body { font-family: 'Montserrat', sans-serif; }</style>
-          </head>
-          <body class="bg-slate-50 text-gray-800 p-10">
-            <h1 class="text-4xl font-bold text-green-700 mb-8">Blog de un Corrector</h1>
-            <div id="content">Cargando...</div>
-          </body>
-        </html>
-      `);
+  const renderContent = () => {
+    const parts = route.split('/');
+    const page = parts[0];
+    const postId = parts[1];
 
-    try {
-        // FIX: Replaced with placeholder. Configure this with your actual backend endpoint.
-        const response = await fetch('https://your-backend-api.com/api/posts');
-        if (!response.ok) {
-            throw new Error('Failed to load posts.');
-        }
-        const blogPosts: BlogPost[] = await response.json();
-
-        const content = blogPosts.map(post => `
-              <div class="mb-8 p-6 bg-white rounded-lg shadow-md">
-                <h2 class="text-2xl font-bold text-green-600">${post.title}</h2>
-                <p class="text-sm text-gray-500 mb-4">${post.date}</p>
-                <div class="text-gray-700 leading-relaxed">${post.fullContent || post.excerpt}</div>
-              </div>
-            `).join('');
-
-        const contentDiv = blogWindow.document.getElementById('content');
-        if (contentDiv) {
-            contentDiv.innerHTML = content;
-        }
-
-    } catch (error) {
-        const contentDiv = blogWindow.document.getElementById('content');
-        if (contentDiv) {
-            contentDiv.innerHTML = `<p class="text-red-500">Error al cargar el blog. Inténtalo de nuevo más tarde.</p>`;
-        }
-    } finally {
-        blogWindow.document.close();
+    if (page === '#blog' && postId) {
+      return <BlogPostPage postId={postId} posts={posts} onNavigate={navigate} />;
     }
-  }
 
+    if (page === '#blog') {
+      return <BlogListPage posts={posts} onNavigate={navigate} />;
+    }
+    
+    // Homepage content
+    return (
+        <>
+            <HeroSection />
+            <section id="servicios" className="py-20 scroll-mt-20">
+              <div className="container mx-auto px-6">
+                <div className="text-center mb-12">
+                  <h2 className="text-4xl font-extrabold text-green-700">Servicios de corrección editorial</h2>
+                  <p className="text-lg text-gray-600 mt-2">Soluciones a medida para que tus textos alcancen la excelencia.</p>
+                </div>
+                <div className="grid md:grid-cols-3 gap-8">
+                  {servicesData.map((service, index) => (
+                    <div key={index} className="bg-white p-8 rounded-2xl shadow-lg text-center transform hover:-translate-y-2 transition-transform duration-300 border border-gray-100 flex flex-col">
+                      <div className="inline-block p-4 bg-orange-100 rounded-full mb-4 mx-auto">{service.icon}</div>
+                      <h3 className="text-2xl font-bold text-green-600 mb-3">{service.title}</h3>
+                      <p className="text-gray-600 flex-grow">{service.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+            <section className="py-20 bg-green-50">
+              <div className="container mx-auto px-6">
+                <div className="text-center mb-12">
+                  <h2 className="text-4xl font-extrabold text-green-700">¿Necesito un corrector de textos?</h2>
+                  <p className="text-lg text-gray-600 mt-2 max-w-3xl mx-auto">Invertir en una corrección profesional es invertir en la calidad y el éxito de tu comunicación.</p>
+                </div>
+                <div className="max-w-4xl mx-auto space-y-10">
+                    <div className="flex items-start gap-6">
+                        <div className="flex-shrink-0 w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-md border border-gray-200">
+                            <BadgeIcon />
+                        </div>
+                        <div>
+                            <h3 className="text-2xl font-bold text-green-600 mb-2">Imagen profesional</h3>
+                            <p className="text-gray-700 leading-relaxed">Un texto sin errores transmite credibilidad y respeto por el lector. Es tu mejor carta de presentación ante editoriales y clientes.</p>
+                        </div>
+                    </div>
+                    <div className="flex items-start gap-6">
+                        <div className="flex-shrink-0 w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-md border border-gray-200">
+                            <LightBulbIcon />
+                        </div>
+                        <div>
+                            <h3 className="text-2xl font-bold text-green-600 mb-2">Claridad del mensaje</h3>
+                            <p className="text-gray-700 leading-relaxed">Me aseguro de que tus ideas se entiendan perfectamente, eliminando ambigüedades, puliendo la sintaxis y facilitando la lectura.</p>
+                        </div>
+                    </div>
+                    <div className="flex items-start gap-6">
+                        <div className="flex-shrink-0 w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-md border border-gray-200">
+                            <ClockIcon />
+                        </div>
+                        <div>
+                            <h3 className="text-2xl font-bold text-green-600 mb-2">Ahorro de tiempo</h3>
+                            <p className="text-gray-700 leading-relaxed">Dedica tu valioso tiempo a lo que mejor sabes hacer: crear. Yo me encargo de la revisión técnica para pulir tu obra a la perfección.</p>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </section>
+            <section id="precios" className="py-20 bg-white scroll-mt-20">
+                <div className="container mx-auto px-6 text-center max-w-4xl">
+                    <h2 className="text-4xl font-extrabold text-green-700">Precios claros y transparentes</h2>
+                    <p className="text-lg text-gray-600 mt-4 mx-auto max-w-3xl">
+                        Cada texto es único. Ofrezco presupuestos personalizados que se ajustan a tus necesidades. La máxima calidad no tiene por qué ser cara. Para recibir una cotización precisa, simplemente envíame tu manuscrito o un fragmento a través del formulario de contacto.
+                    </p>
+                    <a href="#contacto" onClick={(e) => { e.preventDefault(); document.getElementById('contacto')?.scrollIntoView({behavior: 'smooth'})}} className="mt-8 inline-block bg-green-600 text-white font-bold py-3 px-8 rounded-full hover:bg-green-700 transition-transform duration-300 transform hover:scale-105">
+                        Solicita tu presupuesto personalizado
+                    </a>
+                </div>
+            </section>
+            <section className="py-20 bg-white">
+              <div className="container mx-auto px-6">
+                <div className="text-center mb-12">
+                  <h2 className="text-4xl font-extrabold text-green-700">¿Me puede ayudar un informe de lectura?</h2>
+                  <p className="text-lg text-gray-600 mt-2 max-w-3xl mx-auto">Es el primer paso para convertir un buen manuscrito en una obra publicable y exitosa.</p>
+                </div>
+                <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                    <div className="bg-green-50 p-8 rounded-2xl shadow-lg text-center border border-green-100 flex flex-col items-center transform hover:-translate-y-2 transition-transform duration-300">
+                        <div className="inline-block p-4 bg-white rounded-full mb-4 shadow-md"><MagnifyingGlassIcon /></div>
+                        <h3 className="text-2xl font-bold text-green-600 mb-3">Visión objetiva</h3>
+                        <p className="text-gray-600">Recibe una opinión profesional y externa sobre los puntos fuertes y débiles de tu obra, sin filtros emocionales.</p>
+                    </div>
+                    <div className="bg-green-50 p-8 rounded-2xl shadow-lg text-center border border-green-100 flex flex-col items-center transform hover:-translate-y-2 transition-transform duration-300">
+                        <div className="inline-block p-4 bg-white rounded-full mb-4 shadow-md"><MapIcon /></div>
+                        <h3 className="text-2xl font-bold text-green-600 mb-3">Hoja de ruta para mejorar</h3>
+                        <p className="text-gray-600">El informe te proporciona pautas claras y accionables para reescribir y mejorar la estructura, ritmo y personajes.</p>
+                    </div>
+                    <div className="bg-green-50 p-8 rounded-2xl shadow-lg text-center border border-green-100 flex flex-col items-center transform hover:-translate-y-2 transition-transform duration-300">
+                        <div className="inline-block p-4 bg-white rounded-full mb-4 shadow-md"><BuildingIcon /></div>
+                        <h3 className="text-2xl font-bold text-green-600 mb-3">Potencial editorial</h3>
+                        <p className="text-gray-600">Analizo la viabilidad comercial de tu manuscrito y te ayudo a prepararlo para presentarlo a agencias y editoriales.</p>
+                    </div>
+                </div>
+              </div>
+            </section>
+            <section id="sobre-mi" className="py-20 bg-green-50 scroll-mt-20">
+              <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+                <div className="order-1 md:order-2">
+                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1887&auto=format&fit=crop" alt="Retrato profesional de Leonardo Góngora, corrector de textos" className="rounded-2xl shadow-2xl w-full object-cover aspect-[4/3]" />
+                </div>
+                <div className="order-2 md:order-1">
+                  <h2 className="text-4xl font-extrabold text-green-700 mb-4">Soy Leonardo Góngora</h2>
+                  <p className="text-gray-700 mb-4 leading-relaxed">
+                    Mi pasión por la lectura me llevó al mundo editorial hace más de 10 años. Como <strong className="font-semibold">lector editorial y corrector de textos</strong>, he desarrollado un ojo crítico y una sensibilidad especial para encontrar el potencial en cada manuscrito.
+                  </p>
+                  <p className="text-gray-700 mb-6 leading-relaxed">
+                    Desde hace 7 años, me dedico profesionalmente a la corrección y he tenido el placer de formar a nuevas generaciones de correctores. Mi objetivo es simple: que tu mensaje, ya sea en una <strong className="font-semibold">novela, un relato o un informe</strong>, llegue al lector de la forma más clara, precisa y elegante posible.
+                  </p>
+                  <div className="flex items-center space-x-6">
+                    <p className="font-semibold text-gray-700">Sígueme en redes:</p>
+                    <div className="flex space-x-4">
+                      <a href="#" aria-label="Instagram" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-orange-500 transition-colors duration-300">
+                          <InstagramIcon />
+                      </a>
+                      <a href="#" aria-label="Threads" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-orange-500 transition-colors duration-300">
+                          <ThreadsIcon />
+                      </a>
+                      <a href="#" aria-label="Bluesky" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-orange-500 transition-colors duration-300">
+                          <BlueskyIcon />
+                      </a>
+                      <a href="#" aria-label="Facebook" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-orange-500 transition-colors duration-300">
+                          <FacebookIcon />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section id="blog" className="py-20 scroll-mt-20">
+              <div className="container mx-auto px-6">
+                <div className="text-center mb-12">
+                  <h2 className="text-4xl font-extrabold text-green-700">Desde mi escritorio: blog del corrector</h2>
+                  <p className="text-lg text-gray-600 mt-2">Reflexiones y consejos sobre el arte de la corrección de textos.</p>
+                </div>
+                {posts.length > 0 ? (
+                     <div className="grid md:grid-cols-2 gap-8">
+                        {posts.slice(0, 2).map((post) => (
+                            <div key={post.id} className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 flex flex-col">
+                            <p className="text-sm text-gray-500 mb-2">{post.date}</p>
+                            <h3 className="text-2xl font-bold text-green-600 mb-3">{post.title}</h3>
+                            <p className="text-gray-600 mb-4 flex-grow">{post.excerpt}</p>
+                            <a href={`#blog/${post.id}`} onClick={(e) => { e.preventDefault(); navigate(`#blog/${post.id}`)}} className="font-semibold text-orange-500 hover:text-orange-600 self-start">Leer más →</a>
+                            </div>
+                        ))}
+                     </div>
+                ) : (
+                    <div className="text-center text-gray-500">No hay entradas en el blog por el momento.</div>
+                )}
+                 <div className="text-center mt-12">
+                    <a href="#blog" onClick={(e) => { e.preventDefault(); navigate('#blog')}} className="bg-green-600 text-white font-bold py-3 px-8 rounded-full hover:bg-green-700 transition-transform duration-300 transform hover:scale-105">
+                        Visitar el blog completo
+                    </a>
+                </div>
+              </div>
+            </section>
+            <section id="contador" className="py-20 bg-green-50 scroll-mt-20">
+                 <div className="container mx-auto px-6 max-w-4xl">
+                    <WordCounter />
+                 </div>
+            </section>
+            <NewsSection />
+            <ContactForm />
+        </>
+    );
+  };
+  
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Header onOpenBlog={openBlog}/>
+      <Header />
       <main className="flex-grow">
-        <HeroSection />
-        
-        <section id="servicios" className="py-20 scroll-mt-20">
-          <div className="container mx-auto px-6">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-extrabold text-green-700">Servicios de Corrección Editorial</h2>
-              <p className="text-lg text-gray-600 mt-2">Soluciones a medida para que tus textos alcancen la excelencia.</p>
-            </div>
-            <div className="grid md:grid-cols-3 gap-8">
-              {servicesData.map((service, index) => (
-                <div key={index} className="bg-white p-8 rounded-2xl shadow-lg text-center transform hover:-translate-y-2 transition-transform duration-300 border border-gray-100 flex flex-col">
-                  <div className="inline-block p-4 bg-orange-100 rounded-full mb-4 mx-auto">{service.icon}</div>
-                  <h3 className="text-2xl font-bold text-green-600 mb-3">{service.title}</h3>
-                  <p className="text-gray-600 flex-grow">{service.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="py-20 bg-green-50">
-          <div className="container mx-auto px-6">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-extrabold text-green-700">¿Necesito un corrector de textos?</h2>
-              <p className="text-lg text-gray-600 mt-2 max-w-3xl mx-auto">Invertir en una corrección profesional es invertir en la calidad y el éxito de tu comunicación.</p>
-            </div>
-            <div className="max-w-4xl mx-auto space-y-10">
-                <div className="flex items-start gap-6">
-                    <div className="flex-shrink-0 w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-md border border-gray-200">
-                        <BadgeIcon />
-                    </div>
-                    <div>
-                        <h3 className="text-2xl font-bold text-green-600 mb-2">Imagen Profesional</h3>
-                        <p className="text-gray-700 leading-relaxed">Un texto sin errores transmite credibilidad y respeto por el lector. Es tu mejor carta de presentación ante editoriales y clientes.</p>
-                    </div>
-                </div>
-                <div className="flex items-start gap-6">
-                    <div className="flex-shrink-0 w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-md border border-gray-200">
-                        <LightBulbIcon />
-                    </div>
-                    <div>
-                        <h3 className="text-2xl font-bold text-green-600 mb-2">Claridad del Mensaje</h3>
-                        <p className="text-gray-700 leading-relaxed">Me aseguro de que tus ideas se entiendan perfectamente, eliminando ambigüedades, puliendo la sintaxis y facilitando la lectura.</p>
-                    </div>
-                </div>
-                <div className="flex items-start gap-6">
-                    <div className="flex-shrink-0 w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-md border border-gray-200">
-                        <ClockIcon />
-                    </div>
-                    <div>
-                        <h3 className="text-2xl font-bold text-green-600 mb-2">Ahorro de Tiempo</h3>
-                        <p className="text-gray-700 leading-relaxed">Dedica tu valioso tiempo a lo que mejor sabes hacer: crear. Yo me encargo de la revisión técnica para pulir tu obra a la perfección.</p>
-                    </div>
-                </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="precios" className="py-20 bg-white scroll-mt-20">
-            <div className="container mx-auto px-6 text-center max-w-4xl">
-                <h2 className="text-4xl font-extrabold text-green-700">Precios Claros y Transparentes</h2>
-                <p className="text-lg text-gray-600 mt-4 mx-auto max-w-3xl">
-                    Cada texto es único. Ofrezco presupuestos personalizados que se ajustan a tus necesidades. La máxima calidad no tiene por qué ser cara. Para recibir una cotización precisa, simplemente envíame tu manuscrito o un fragmento a través del formulario de contacto.
-                </p>
-                <a href="#contacto" onClick={(e) => { e.preventDefault(); document.getElementById('contacto')?.scrollIntoView({behavior: 'smooth'})}} className="mt-8 inline-block bg-green-600 text-white font-bold py-3 px-8 rounded-full hover:bg-green-700 transition-transform duration-300 transform hover:scale-105">
-                    Solicita tu Presupuesto Personalizado
-                </a>
-            </div>
-        </section>
-
-        <section className="py-20 bg-white">
-          <div className="container mx-auto px-6">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-extrabold text-green-700">¿Me puede ayudar un informe de lectura?</h2>
-              <p className="text-lg text-gray-600 mt-2 max-w-3xl mx-auto">Es el primer paso para convertir un buen manuscrito en una obra publicable y exitosa.</p>
-            </div>
-            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                <div className="bg-green-50 p-8 rounded-2xl shadow-lg text-center border border-green-100 flex flex-col items-center transform hover:-translate-y-2 transition-transform duration-300">
-                    <div className="inline-block p-4 bg-white rounded-full mb-4 shadow-md"><MagnifyingGlassIcon /></div>
-                    <h3 className="text-2xl font-bold text-green-600 mb-3">Visión Objetiva</h3>
-                    <p className="text-gray-600">Recibe una opinión profesional y externa sobre los puntos fuertes y débiles de tu obra, sin filtros emocionales.</p>
-                </div>
-                <div className="bg-green-50 p-8 rounded-2xl shadow-lg text-center border border-green-100 flex flex-col items-center transform hover:-translate-y-2 transition-transform duration-300">
-                    <div className="inline-block p-4 bg-white rounded-full mb-4 shadow-md"><MapIcon /></div>
-                    <h3 className="text-2xl font-bold text-green-600 mb-3">Hoja de Ruta para Mejorar</h3>
-                    <p className="text-gray-600">El informe te proporciona pautas claras y accionables para reescribir y mejorar la estructura, ritmo y personajes.</p>
-                </div>
-                <div className="bg-green-50 p-8 rounded-2xl shadow-lg text-center border border-green-100 flex flex-col items-center transform hover:-translate-y-2 transition-transform duration-300">
-                    <div className="inline-block p-4 bg-white rounded-full mb-4 shadow-md"><BuildingIcon /></div>
-                    <h3 className="text-2xl font-bold text-green-600 mb-3">Potencial Editorial</h3>
-                    <p className="text-gray-600">Analizo la viabilidad comercial de tu manuscrito y te ayudo a prepararlo para presentarlo a agencias y editoriales.</p>
-                </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="sobre-mi" className="py-20 bg-green-50 scroll-mt-20">
-          <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-            <div className="order-1 md:order-2">
-              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1887&auto=format&fit=crop" alt="Retrato profesional de Leonardo Góngora, corrector de textos" className="rounded-2xl shadow-2xl w-full object-cover aspect-[4/3]" />
-            </div>
-            <div className="order-2 md:order-1">
-              <h2 className="text-4xl font-extrabold text-green-700 mb-4">Soy Leonardo Góngora</h2>
-              <p className="text-gray-700 mb-4 leading-relaxed">
-                Mi pasión por la lectura me llevó al mundo editorial hace más de 10 años. Como <strong className="font-semibold">lector editorial y corrector de textos</strong>, he desarrollado un ojo crítico y una sensibilidad especial para encontrar el potencial en cada manuscrito.
-              </p>
-              <p className="text-gray-700 mb-6 leading-relaxed">
-                Desde hace 7 años, me dedico profesionalmente a la corrección y he tenido el placer de formar a nuevas generaciones de correctores. Mi objetivo es simple: que tu mensaje, ya sea en una <strong className="font-semibold">novela, un relato o un informe</strong>, llegue al lector de la forma más clara, precisa y elegante posible.
-              </p>
-              <div className="flex items-center space-x-6">
-                <p className="font-semibold text-gray-700">Sígueme en redes:</p>
-                <div className="flex space-x-4">
-                  <a href="#" aria-label="Instagram" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-orange-500 transition-colors duration-300">
-                      <InstagramIcon />
-                  </a>
-                  <a href="#" aria-label="Threads" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-orange-500 transition-colors duration-300">
-                      <ThreadsIcon />
-                  </a>
-                  <a href="#" aria-label="Bluesky" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-orange-500 transition-colors duration-300">
-                      <BlueskyIcon />
-                  </a>
-                  <a href="#" aria-label="Facebook" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-orange-500 transition-colors duration-300">
-                      <FacebookIcon />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="blog" className="py-20 scroll-mt-20">
-          <div className="container mx-auto px-6">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-extrabold text-green-700">Desde mi escritorio: Blog del Corrector</h2>
-              <p className="text-lg text-gray-600 mt-2">Reflexiones y consejos sobre el arte de la corrección de textos.</p>
-            </div>
-            {isLoadingPosts && <div className="text-center">Cargando entradas del blog...</div>}
-            {postsError && <div className="text-center text-red-500 bg-red-100 p-4 rounded-lg">{postsError}</div>}
-            {!isLoadingPosts && !postsError && posts.length > 0 && (
-                 <div className="grid md:grid-cols-2 gap-8">
-                    {posts.slice(0, 2).map((post) => (
-                        <div key={post.id} className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 flex flex-col">
-                        <p className="text-sm text-gray-500 mb-2">{post.date}</p>
-                        <h3 className="text-2xl font-bold text-green-600 mb-3">{post.title}</h3>
-                        <p className="text-gray-600 mb-4 flex-grow">{post.excerpt}</p>
-                        <button onClick={openBlog} className="font-semibold text-orange-500 hover:text-orange-600 self-start">Leer más →</button>
-                        </div>
-                    ))}
-                 </div>
-            )}
-             {!isLoadingPosts && !postsError && posts.length === 0 && (
-                <div className="text-center text-gray-500">No hay entradas en el blog por el momento.</div>
-            )}
-             <div className="text-center mt-12">
-                <button onClick={openBlog} className="bg-green-600 text-white font-bold py-3 px-8 rounded-full hover:bg-green-700 transition-transform duration-300 transform hover:scale-105">
-                    Visitar el Blog Completo
-                </button>
-            </div>
-          </div>
-        </section>
-        
-        <section id="contador" className="py-20 bg-green-50 scroll-mt-20">
-             <div className="container mx-auto px-6 max-w-4xl">
-                <WordCounter />
-             </div>
-        </section>
-        
-        <NewsSection />
-
-        <ContactForm />
-
+        {renderContent()}
       </main>
 
       <footer className="bg-green-800 text-white">
@@ -743,7 +768,7 @@ export default function App() {
                     <FacebookIcon />
                 </a>
             </div>
-            <p>&copy; {new Date().getFullYear()} CorrectorDeTextos.es | Todos los derechos reservados.</p>
+            <p>&copy; {new Date().getFullYear()} CorrectorDeTextos.eu | Todos los derechos reservados.</p>
             <p className="text-sm text-green-200 mt-2">Diseño y desarrollo con pasión por la palabra escrita.</p>
         </div>
       </footer>

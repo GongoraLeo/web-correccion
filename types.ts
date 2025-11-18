@@ -12,11 +12,12 @@ export interface BlogPost {
   title: string;
   excerpt: string;
   date: string;
+  imageUrl: string;
   fullContent: string;
 }
 
 export interface NewsArticle {
-  title: string;
+  title:string;
   summary: string;
   url?: string;
 }
